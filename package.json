@@ -1,0 +1,29 @@
+{
+  "name": "liri-node-app",
+  "version": "1.0.0",
+  "description": "LIRI is a _Language_ Interpretation and Recognition Interface.",
+  "main": "keys.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/erikamtnz13/liri-node-app.git"
+  },
+  "keywords": [
+    "twitter",
+    "spotify",
+    "request"
+  ],
+  "author": "Erika Martinez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/erikamtnz13/liri-node-app/issues"
+  },
+  "homepage": "https://github.com/erikamtnz13/liri-node-app#readme",
+  "dependencies": {
+    "node-spotify-api": "^1.0.6",
+    "request": "^2.81.0",
+    "twitter": "^1.7.1"
+  }
+}
