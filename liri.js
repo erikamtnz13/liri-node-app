@@ -8,10 +8,35 @@ var spotifyKeys = keys.spotifyKeys;
 
 var command = process.argv[2];
 
+if (!command) {
+	console.log("👉  Please select from one of the following commands: my-tweets, spotify-this-song, movie-this, or do-what-it-says. Thank you.");	
+}
+
+else {
+
+switch (command) {
+	case "my-tweets":
+	twitter();	
+		break;
+
+	case "spotify-this-song":
+	spotify();	
+		break;
+	
+	case "movie-this":
+	omdb();	
+		break;
+
+	case "do-what-it-says":
+	readfs();	
+		break;
+
+}
+
 
 //////////////////Twitter////////////////////////
 
-if (command === "my-tweets") {
+function twitter() {
 		var Twitter = require('twitter');
  
 		var client = new Twitter(twitterKeys);
@@ -19,16 +44,19 @@ if (command === "my-tweets") {
 		var params = {screen_name: 'codecamp_erika',count: 20};
 		client.get('statuses/user_timeline', params, function(error, tweets, response) {
 		  if (!error) {
-		  	for (var i = 0; i < tweets.length; i++) {
-		  		console.log(tweets[i].text + "   " + tweets[i].created_at);
-		  	}
-		    
+			console.log("❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖");
+			console.log("");
+		  	for (var i = 0; i < tweets.length; i++) {			
+				console.log(tweets[i].text + "   " + tweets[i].created_at);
+			  }
+			console.log("");
+			console.log("❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖");		    
 		  }
 		});
 }
 
 //////////////////////SPOTIFY/////////////////////
-else if (command === "spotify-this-song") {
+function spotify() {
 
 	var Spotify = require('node-spotify-api');
  
@@ -46,32 +74,54 @@ else if (command === "spotify-this-song") {
 			if (err) {
 	    		return console.log('Error occurred: ' + err);
 	  		} else {
+				console.log("❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖");	
+				console.log("");
 	  			console.log("Artist: " + data.tracks.items[0].artists[0].name);
 	  			console.log("Song: " + data.tracks.items[0].name);
 	  			console.log("Preview: " + data.tracks.items[0].preview_url);
 	  			console.log("Album: " + data.tracks.items[0].album.name);
-	  			return console.log("Please enter the name of another song.");
+				console.log("");
+				console.log("🎶  Please enter the name of another song.")
+				return console.log("❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖");
+					
 	  		}
 	
 	});
 
 	}
 
-else if (command === "movie-this") {
+///////////////////////////OMDB Code/////////////////////////	
+function omdb() {
 	
-///////////////////////////OMDB Code/////////////////////////
 	var movieName = process.argv[3];
 
 	if (movieName) {
+		movieName = movieName;
+	} 
+	else if (!movieName){
+		movieName = "Mr. Nobody";
+	}
 		
 		var request = require("request");
-		movieName = process.argv[3];
 		var queryUrl = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=40e9cece";
 
-		request(queryUrl,function (error,response,body) {
+		request(queryUrl, function (error,response,body) {
 			if (!error && response.statusCode === 200) {
-				console.log("Movie Title: " + JSON.parse(body).Title + " * Release Year: " + JSON.parse(body).Year + " * IMDB Rating: " + JSON.parse(body).imdbRating + 
-					" * " + JSON.parse(body).Ratings[1].Source + ": " + JSON.parse(body).Ratings[1].Value + " * Country: " + JSON.parse(body).Country + " * Language: " + JSON.parse(body).Language + " * Movie Plot: " + JSON.parse(body).Plot + " * Actors: " + JSON.parse(body).Actors);
+				console.log("❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖");	
+				console.log("");
+				console.log("Movie Title: " + JSON.parse(body).Title);
+				console.log("Release Year: " + JSON.parse(body).Year);
+				console.log("IMDB Rating: " + JSON.parse(body).imdbRating)
+				console.log(JSON.parse(body).Ratings[1].Source + ": " + JSON.parse(body).Ratings[1].Value)
+				console.log("Country: " + JSON.parse(body).Country)
+				console.log("Language: " + JSON.parse(body).Language)
+				console.log("Movie Plot: " + JSON.parse(body).Plot)
+				console.log("Actors: " + JSON.parse(body).Actors);
+				console.log("");
+				console.log("❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖");	
+				console.log("");
+				return console.log("👉  Please enter the name of another movie.")
+				
 			}
 			else if (error) {
 					return console.log(error);
@@ -79,15 +129,8 @@ else if (command === "movie-this") {
 		});
 	}
 
-	else if (!movieName) {
-			return console.log("Please enter the name of a movie.")
-	}
-
-
-}
-
 //////////////////REQUIRE FS//////////////////////////
-else if (command === "do-what-it-says") {
+function readfs() {
 	var fs = require("fs");
 		fs.readFile("random.txt", "utf8", function(error, data) {
 	if (error) {
@@ -114,39 +157,6 @@ else if (command === "do-what-it-says") {
 	
 	});
 }
-
-else {
-	console.log("Please select from one of the following commands: my-tweets, spotify-this-song, movie-this, or do-what-it-says. Thank you.");
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
