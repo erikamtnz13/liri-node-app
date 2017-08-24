@@ -67,7 +67,7 @@ function spotify() {
 		music = music;
 		
 	} else if (!music) {
-		music = 'Imitadora';
+		music = 'The Sign';
 				
 	}
 		spotify.search({ type: 'track', query: music }, function (err, data) {
